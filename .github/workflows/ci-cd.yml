@@ -43,13 +43,13 @@ jobs:
 
       # Configurar kubeconfig para o cluster k3d
       - name: Configurar kubeconfig
-        shell: pwsh
         run: |
-          $kubeDir = "$HOME\.kube"
-          if (-Not (Test-Path $kubeDir)) {
-            New-Item -ItemType Directory -Path $kubeDir
-          }
-          "${{ secrets.KUBECONFIG }}" | Out-File -Encoding ascii "$kubeDir\config"
+          if not exist "%USERPROFILE%\.kube" mkdir "%USERPROFILE%\.kube"
+          echo %KUBECONFIG% > "%USERPROFILE%\.kube\config"
+        shell: cmd
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
 
       # Aplicar manifests Kubernetes
       - name: Deploy no Kubernetes
