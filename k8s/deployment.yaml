@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-java
+  labels:
+    app: app-java
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: app-java
+  template:
+    metadata:
+      labels:
+        app: app-java
+    spec:
+      containers:
+        - name: app-java
+          image: tomasreigota/app-java:latest  # substitui pelo teu Docker Hub
+          ports:
+            - containerPort: 8080
