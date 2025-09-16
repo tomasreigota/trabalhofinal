@@ -7,5 +7,6 @@ spec:
     app: app-java
   ports:
     - port: 80
-      targetPort: 8080
-  type: LoadBalancer
+      targetPort: 8080 
+  type: NodePort 
+
