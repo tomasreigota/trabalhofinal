@@ -50,12 +50,14 @@ jobs:
         env:
           KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
-
       # Aplicar manifests Kubernetes
       - name: Deploy no Kubernetes
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
+
+      - name: Aplicar porta forward
+        run: kubectl port-forward svc/app-java-service 8080:80
 
       # Verificar pods e serviços
       - name: Verificar estado no cluster
