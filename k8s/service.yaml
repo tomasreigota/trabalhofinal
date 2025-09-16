@@ -6,7 +6,6 @@ spec:
   selector:
     app: app-java
   ports:
-    - port: 80     
-      targetPort: 8080 
-      nodePort: 30080
-  type: NodePort 
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
