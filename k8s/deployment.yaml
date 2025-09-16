@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: app-java
-          image: tomasreigota/app-java:latest  # substitui pelo teu Docker Hub
+          image: tomasreigota/app-java:latest  # imagem Docker
           ports:
             - containerPort: 8080
