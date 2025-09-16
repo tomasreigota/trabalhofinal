@@ -6,6 +6,6 @@ spec:
   selector:
     app: app-java
   ports:
-    - port: 80       # porta do serviço
-      targetPort: 8080  # porta do container
-  type: NodePort     # para aceder via browser no cluster local
+    - port: 80     
+      targetPort: 8080 
+  type: NodePort 
