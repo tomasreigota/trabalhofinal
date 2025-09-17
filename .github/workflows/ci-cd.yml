@@ -57,7 +57,7 @@ jobs:
           kubectl apply -f k8s/service.yaml
 
       - name: Aplicar port-forward
-        run: Start-Process -NoNewWindow kubectl -ArgumentList "port-forward svc/app-java-service 8080:80"
+        run: kubectl port-forward svc/app-java 8080:8080 &
 
       # Verificar pods e serviços
       - name: Verificar estado no cluster
