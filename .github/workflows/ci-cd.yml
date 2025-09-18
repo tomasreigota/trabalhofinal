@@ -57,7 +57,7 @@ jobs:
           kubectl apply -f k8s/service.yaml
 
       - name: Port-forward temporário (30s)
-        shell: pwsh
+        shell: shell
         run: |
           $job = Start-Job { kubectl port-forward svc/app-java 8080:8080 }
           Start-Sleep -Seconds 30
