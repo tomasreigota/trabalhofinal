@@ -58,7 +58,7 @@ jobs:
 
       - name: Aplicar port-forward
         run: kubectl port-forward svc/app-java-service 8080:80 
-        timeout-minutes: 1
+        #timeout-minutes: 1
 
       # Verificar pods e serviços
       - name: Verificar estado no cluster
