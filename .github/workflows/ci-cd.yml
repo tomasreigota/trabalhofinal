@@ -1,73 +1,4 @@
-# name: CI/CD Java Maven + Docker + Kubernetes
-
-# on:
-#   push:
-#     branches: ["main"]
-
-# jobs:
-#   build:
-#     runs-on: self-hosted
-
-#     steps:
-#       # Checkout do código
-#       - name: Checkout código
-#         uses: actions/checkout@v3
-
-#       # Compilar e testar
-#       - name: Compilar e testar Maven
-#         run: mvn clean verify
-
-#       # Login no Docker Hub
-#       - name: Login Docker Hub
-#         uses: docker/login-action@v2
-#         with:
-#           username: ${{ secrets.DOCKER_USERNAME }}
-#           password: ${{ secrets.DOCKER_PASSWORD }}
-
-#       # Build da imagem Docker
-#       - name: Build Docker image
-#         run: docker build -t tomasreigota/app-java:latest .
-
-#       # Push da imagem Docker
-#       - name: Push Docker image
-#         run: docker push tomasreigota/app-java:latest
-
-#   deploy:
-#     runs-on: self-hosted
-#     needs: build
-
-#     steps:
-#       # Checkout do código
-#       - name: Checkout código
-#         uses: actions/checkout@v3
-
-#       # Configurar kubeconfig para o cluster k3d
-#       - name: Configurar kubeconfig
-#         run: |
-#           if not exist "%USERPROFILE%\.kube" mkdir "%USERPROFILE%\.kube"
-#           echo %KUBECONFIG% > "%USERPROFILE%\.kube\config"
-#         shell: cmd
-#         env:
-#           KUBECONFIG: ${{ secrets.KUBECONFIG }}
-
-#       # Aplicar manifests Kubernetes
-#       - name: Deploy no Kubernetes
-#         run: |
-#           kubectl apply -f k8s/deployment.yaml
-#           kubectl apply -f k8s/service.yaml
-
-#       - name: Port-forward
-#         run: kubectl port-forward svc/app-java-service 8080:80
-#         #timeout-minutes: 1
-
-#       # Verificar pods e serviços
-#       - name: Verificar estado no cluster
-#         run: |
-#           kubectl get pods
-#           kubectl get svc
-
-
-name: CI/CD Java Maven + Docker + Kubernetes (Cluster Teste)
+name: CI/CD Java Maven + Docker + Kubernetes
 
 on:
   push:
@@ -78,21 +9,26 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      # Checkout do código
       - name: Checkout código
         uses: actions/checkout@v3
 
+      # Compilar e testar
       - name: Compilar e testar Maven
         run: mvn clean verify
 
+      # Login no Docker Hub
       - name: Login Docker Hub
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      # Build da imagem Docker
       - name: Build Docker image
         run: docker build -t tomasreigota/app-java:latest .
 
+      # Push da imagem Docker
       - name: Push Docker image
         run: docker push tomasreigota/app-java:latest
 
@@ -101,22 +37,30 @@ jobs:
     needs: build
 
     steps:
+      # Checkout do código
       - name: Checkout código
         uses: actions/checkout@v3
 
-      - name: Configurar kubeconfig para cluster de teste
+      # Configurar kubeconfig para o cluster k3d
+      - name: Configurar kubeconfig
         run: |
           if not exist "%USERPROFILE%\.kube" mkdir "%USERPROFILE%\.kube"
-          echo %KUBECONFIG_TESTE% > "%USERPROFILE%\.kube\config"
+          echo %KUBECONFIG% > "%USERPROFILE%\.kube\config"
         shell: cmd
         env:
-          KUBECONFIG_TESTE: ${{ secrets.KUBECONFIG_TESTE }}
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
-      - name: Deploy no Kubernetes (cluster de teste)
+      # Aplicar manifests Kubernetes
+      - name: Deploy no Kubernetes
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
+      - name: Port-forward
+        run: kubectl port-forward svc/app-java-service 8080:80
+        timeout-minutes: 1
+
+      # Verificar pods e serviços
       - name: Verificar estado no cluster
         run: |
           kubectl get pods
