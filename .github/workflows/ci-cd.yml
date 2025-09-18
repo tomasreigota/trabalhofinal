@@ -56,9 +56,12 @@ jobs:
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
-      - name: Aplicar port-forward
-        run: kubectl port-forward svc/app-java-service 8080:80 
-        timeout-minutes: 1
+      - name: Port-forward temporário (30s)
+        shell: pwsh
+        run: |
+          $job = Start-Job { kubectl port-forward svc/app-java 8080:8080 }
+          Start-Sleep -Seconds 30
+          Stop-Job $job
 
       # Verificar pods e serviços
       - name: Verificar estado no cluster
