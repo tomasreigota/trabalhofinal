@@ -13,9 +13,10 @@ spec:
         app: app-nginx
     spec:
       containers:
-        - name: app-nginx
-          image: tomasreigota/app-nginx:latest
-          ports:
-            - containerPort: 80
+      - name: nginx
+        image: tomasreigota/app-nginx:latest
+        ports:
+        - containerPort: 80
+
 
 
