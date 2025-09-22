@@ -1,21 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-java
+  name: app-nginx
   labels:
-    app: app-java
+    app: app-nginx
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: app-java
+      app: app-nginx
   template:
     metadata:
       labels:
-        app: app-java
+        app: app-nginx
     spec:
       containers:
-        - name: app-java
-          image: tomasreigota/app-java:latest  # imagem Docker
+        - name: app-nginx
+          image: tomasreigota/app-nginx:latest
           ports:
-            - containerPort: 8080
+            - containerPort: 80
+

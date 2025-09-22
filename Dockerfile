@@ -1,7 +1,8 @@
-FROM tomcat:10.0
+# Imagem base do Nginx
+FROM nginx:stable-alpine
 
-WORKDIR /usr/local/tomcat/webapps/
+# Copiar o ficheiro index.html para a pasta default do nginx
+COPY src/index.html /usr/share/nginx/html/index.html
 
-COPY target/JSPSample-0.0.1.war .
-
-EXPOSE 8080
+# Expor a porta 80 (porta padrão do Nginx)
+EXPOSE 80
