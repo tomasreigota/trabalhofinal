@@ -1,4 +1,0 @@
-additionalScrapeConfigs:
-  - job_name: 'nginx'
-    static_configs:
-      - targets: ['app-nginx-service:9113']
