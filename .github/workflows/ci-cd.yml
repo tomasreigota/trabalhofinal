@@ -44,13 +44,9 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
-          kubectl apply -f k8s/monitor.yaml -n monitoring
-          kubectl apply -f k8s/grafana-service.yaml
 
       - name: Verificar estado no cluster
         run: |
           kubectl get pods
           kubectl get svc
-          kubectl get servicemonitors -n monitoring
-          kubectl get nodes -o wide
 
