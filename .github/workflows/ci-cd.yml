@@ -51,3 +51,5 @@ jobs:
           kubectl get pods
           kubectl get svc
           kubectl get servicemonitors -n monitoring
+
+          
