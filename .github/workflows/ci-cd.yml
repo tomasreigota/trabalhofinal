@@ -44,8 +44,10 @@ jobs:
         run: |
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
+          kubectl apply -f k8s/servicemonitor.yaml
 
       - name: Verificar estado no cluster
         run: |
           kubectl get pods
           kubectl get svc
+          kubectl get servicemonitors -A
