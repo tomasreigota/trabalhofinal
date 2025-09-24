@@ -9,4 +9,4 @@ spec:
       app: app-nginx
   endpoints:
     - port: metrics
-      path: /metrics
+      interval: 30s
