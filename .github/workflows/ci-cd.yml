@@ -45,6 +45,9 @@ jobs:
           kubectl apply -f k8s/deployment.yaml
           kubectl apply -f k8s/service.yaml
 
+      - name: Atualizar pods no cluster
+        run: kubectl rollout restart deployment/app-nginx -n default
+
       - name: Verificar estado no cluster
         run: |
           kubectl get pods

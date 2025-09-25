@@ -15,7 +15,6 @@ spec:
       containers:
         - name: app-nginx
           image: tomasreigota/app-nginx:latest
-          imagePullPolicy: Always
           ports:
             - containerPort: 80
 
