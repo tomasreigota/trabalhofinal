@@ -17,5 +17,3 @@ spec:
           image: tomasreigota/app-nginx:latest
           ports:
             - containerPort: 80
-
-            
